@@ -8,8 +8,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --red: #e53935;
   --green: #43a047;
+  --red: #e53935;
 }
 
 body {
@@ -100,7 +100,7 @@ body {
 .bot-nav button:hover { background: #43a047; color: white; }
 .bot-nav .tip { font-size: 13px; color: #aaa; }
 
-/* ──────── 单词页 ──────── */
+/* ──────── 单词复习 ──────── */
 .vocab-body { padding: 20px 18px; background: #f1f8e9; }
 .vocab-body h3 { color: #2e7d32; font-size: 17px; margin-bottom: 14px; }
 
@@ -119,34 +119,67 @@ body {
 .fruit-card .eng   { font-size: 16px; font-weight: bold; color: #333; }
 .fruit-card .chn   { font-size: 12px; color: #999; margin-top: 2px; }
 
-/* ──────── 市场场景 ──────── */
-.market-scene {
-  background: linear-gradient(180deg, #e3f2fd 0%, #f1f8e9 100%);
-  padding: 24px 16px 28px;
+/* ──────── Story 页面 — 模拟课本第38页布局 ──────── */
+.story-body { padding: 16px; background: #fff; }
+.story-header {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 12px;
+}
+.story-header .sh-title { font-size: 22px; font-weight: bold; color: #e53935; }
+.story-header .sh-sub  { font-size: 13px; color: #888; margin-left: auto; }
+
+/* 第一排：问句 + 回答（2格） */
+.story-row1 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;
+}
+/* 第二排：我喜欢（3格） */
+.story-row2 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;
+}
+/* 第三排：购买+礼貌用语（2x2） */
+.story-row3 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;
+}
+
+.story-panel {
+  background: #f9f9f9; border-radius: 14px; padding: 14px 10px;
+  cursor: pointer; transition: transform .15s; text-align: center;
+  border: 2px solid #e0e0e0;
   position: relative;
 }
-.awning-row { display: flex; justify-content: center; }
-.awning {
-  width: 88%; max-width: 460px; height: 48px;
-  background: repeating-linear-gradient(90deg, #43a047 0 35px, #fff 35px 70px);
-  border-radius: 14px 14px 0 0;
-}
-.counter {
-  width: 88%; max-width: 460px; margin: 0 auto;
-  background: #8d6e63; border-radius: 0 0 10px 10px;
-  padding: 16px 12px;
-  display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
-}
-.stall-fruit {
-  text-align: center; cursor: pointer; background: none; border: none; outline: none;
-  transition: transform .15s;
-}
-.stall-fruit:hover  { transform: scale(1.12); }
-.stall-fruit:active { transform: scale(.9); }
-.stall-fruit .sf-emoji { font-size: 44px; display: block; }
-.stall-fruit .sf-word  { font-size: 14px; font-weight: bold; color: white; margin-top: 3px; }
+.story-panel:hover  { transform: scale(1.03); background: #f1f8e9; border-color: #81c784; }
+.story-panel:active { transform: scale(.95); }
 
-/* ──────── 对话卡 ──────── */
+.story-panel .sp-scene { font-size: 34px; margin-bottom: 6px; }
+.story-panel .sp-text  { font-size: 17px; font-weight: bold; color: #333; line-height: 1.35; }
+.story-panel .sp-chn   { font-size: 11px; color: #888; margin-top: 4px; }
+
+/* 不同类型卡片颜色 */
+.sp-ask    .sp-text { color: #1565c0; }
+.sp-no     .sp-text { color: #c62828; }
+.sp-like   .sp-text { color: #2e7d32; }
+.sp-buy    .sp-text { color: #e65100; }
+.sp-polite .sptext { color: #f57f17; } /* 礼貌用语 */
+
+/* 语言栏 */
+.lang-bar {
+  margin-top: 12px;
+  background: #fffde7; border-left: 5px solid #fbc02d;
+  padding: 12px 14px; border-radius: 0 8px 8px 0;
+  font-size: 13px; color: #555; line-height: 2;
+}
+.lang-bar strong { color: #f57f00; font-size: 14px; }
+
+/* 爷爷奶奶提示 */
+.grandma-tip {
+  background: #fff9c4; border: 2px solid #fbc02d;
+  border-radius: 12px; padding: 10px 14px;
+  margin: 0 16px 12px;
+  font-size: 13px; color: #666; line-height: 1.8;
+}
+.grandma-tip .label { font-weight: bold; color: #f57c00; }
+
+/* ──────── 句型练习页 ──────── */
 .dialog-section { padding: 16px; background: #f1f8e9; }
 .dialog-section h3 { color: #2e7d32; font-size: 17px; margin-bottom: 14px; text-align: center; }
 
@@ -160,48 +193,17 @@ body {
 .dialog-card:hover { transform: scale(1.02); border-color: #43a047; }
 .dialog-card:active { transform: scale(.97); }
 
-.dialog-card .dc-scene {
-  font-size: 32px; text-align: center; margin-bottom: 8px;
-}
-.dialog-card .dc-eng {
-  font-size: 18px; font-weight: bold; color: #333; text-align: center;
-}
-.dialog-card .dc-chn {
-  font-size: 13px; color: #888; text-align: center; margin-top: 4px;
-}
+.dialog-card .dc-scene { font-size: 32px; text-align: center; margin-bottom: 8px; }
+.dialog-card .dc-eng { font-size: 18px; font-weight: bold; color: #333; text-align: center; }
+.dialog-card .dc-chn { font-size: 13px; color: #888; text-align: center; margin-top: 4px; }
 
-/* 不同角色颜色 */
 .dialog-card.seller  { background: #e8f5e9; border-color: #66bb6a; }
 .dialog-card.buyer   { background: #e3f2fd; border-color: #42a5f5; }
 .dialog-card.polite  { background: #fff9c4; border-color: #fbc02d; }
-
 .dialog-card .dc-eng.ask    { color: #1565c0; }
 .dialog-card .dc-eng.answer { color: #c62828; }
 .dialog-card .dc-eng.like   { color: #2e7d32; }
 .dialog-card .dc-eng.polite { color: #f57f17; }
-
-/* ──────── 完整故事流程 ──────── */
-.story-flow { padding: 16px; }
-.story-step {
-  display: flex; align-items: flex-start; gap: 12px;
-  margin-bottom: 14px;
-}
-.step-num {
-  width: 36px; height: 36px; min-width: 36px;
-  background: #43a047; color: white; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: bold; font-size: 16px;
-}
-.step-content {
-  flex: 1; background: #f1f8e9; border-radius: 12px; padding: 12px 14px;
-  border: 2px solid #c8e6c9;
-  cursor: pointer; transition: transform .15s;
-}
-.step-content:hover { transform: scale(1.02); border-color: #43a047; }
-.step-content:active { transform: scale(.97); }
-.step-content .se-scene { font-size: 28px; margin-bottom: 4px; }
-.step-content .se-eng { font-size: 17px; font-weight: bold; color: #333; }
-.step-content .se-chn { font-size: 13px; color: #888; margin-top: 2px; }
 
 /* ──────── 作业页 ──────── */
 .hw-body { padding: 20px 18px; }
@@ -258,14 +260,6 @@ body {
 }
 .chn-bar .label { font-weight: bold; color: #2e7d32; }
 
-.grandma-tip {
-  background: #fff9c4; border: 2px solid #fbc02d;
-  border-radius: 12px; padding: 10px 14px;
-  margin: 0 16px 12px;
-  font-size: 13px; color: #666; line-height: 1.8;
-}
-.grandma-tip .label { font-weight: bold; color: #f57c00; }
-
 /* ──────── 动画 ──────── */
 .pop { animation: pop .35s ease; }
 @keyframes pop {
@@ -287,25 +281,26 @@ body {
     <div class="subtitle">English Learning for Kids</div>
     <div class="divider"></div>
     <div class="topic">I like to eat 🍎</div>
-    <div class="session-badge">Topic 5 · Session 4</div>
+    <div class="session-badge">Topic 5 · Session 4 · Story</div>
     <div class="scene-desc">
-      📍 场景：在市场 Market<br>
-      🎯 目标：角色扮演买水果，使用礼貌用语
+      📍 场景：市场 Market<br>
+      🎯 目标：角色扮演买水果，使用礼貌用语<br>
+      📖 课本第38页
     </div>
-    <button class="btn-start" onclick="go('pg-words')">开始学习 ▶</button>
+    <button class="btn-start" onclick="go('pg-story')">开始学习 ▶</button>
   </div>
 </div>
 
 <!-- ═════════════════════════════════
-     第1页：单词复习
+     第1页：课本第38页 Story（完全按课本排版）
 ═════════════════════════════════ -->
-<div class="page" id="pg-words">
+<div class="page" id="pg-story">
   <div class="top-bar">
     <div class="left">
-      <div class="sub">Session 4 · 单词 Words</div>
-      <div class="main">水果 🍎 Fruits</div>
+      <div class="sub">Session 4 · Story · 第38页</div>
+      <div class="main">Act out the story 🎭</div>
     </div>
-    <div class="pg">1/4</div>
+    <div class="pg">1/3</div>
   </div>
 
   <div class="speed-bar">
@@ -317,62 +312,141 @@ body {
 
   <div class="grandma-tip">
     <span class="label">👵 爷爷奶奶看这里：</span><br>
-    点一下水果卡片，听英语发音，然后问孩子："这个用英语怎么说？"
+    这是课本第38页的内容，点击每个格子听英语发音。和孩子一起读，然后问孩子："这句话什么意思？"
   </div>
 
-  <div class="vocab-body">
-    <h3>🍎 水果 Fruits — 点击听单词</h3>
-    <div class="fruit-cards">
-      <div class="fruit-card" onclick="tap(this,'apples')">
-        <span class="emoji">🍎</span>
-        <div class="eng">apples</div>
-        <div class="chn">苹果</div>
-      </div>
-      <div class="fruit-card" onclick="tap(this,'green apples')">
-        <span class="emoji">🍏</span>
-        <div class="eng">green apples</div>
-        <div class="chn">青苹果</div>
-      </div>
-      <div class="fruit-card" onclick="tap(this,'red apples')">
-        <span class="emoji">🍎</span>
-        <div class="eng">red apples</div>
-        <div class="chn">红苹果</div>
-      </div>
-      <div class="fruit-card" onclick="tap(this,'strawberries')">
-        <span class="emoji">🍓</span>
-        <div class="eng">strawberries</div>
-        <div class="chn">草莓</div>
-      </div>
-      <div class="fruit-card" onclick="tap(this,'oranges')">
-        <span class="emoji">🍊</span>
-        <div class="eng">oranges</div>
-        <div class="chn">橙子</div>
-      </div>
-      <div class="fruit-card" onclick="tap(this,'grapes')">
-        <span class="emoji">🍇</span>
-        <div class="eng">grapes</div>
-        <div class="chn">葡萄</div>
-      </div>
+  <div class="story-body">
+
+    <!-- 标题 -->
+    <div class="story-header">
+      <span class="sh-title">Story 📖</span>
+      <span class="sh-sub">Act out the story</span>
     </div>
+
+    <!-- ══ 第一排：问句 + 回答（2格） ══ -->
+    <div class="story-row1">
+
+      <!-- 左：Do you like green apples? -->
+      <div class="story-panel sp-ask" onclick="tap(this,'Do you like green apples?')">
+        <div class="sp-scene">👩 🍏</div>
+        <div class="sp-text">Do you like 🍏?</div>
+        <div class="sp-chn">你喜欢青苹果吗？</div>
+      </div>
+
+      <!-- 右：What do you like? -->
+      <div class="story-panel sp-ask" onclick="tap(this,'What do you like?')">
+        <div class="sp-scene">👩 🤔</div>
+        <div class="sp-text">What do you like?</div>
+        <div class="sp-chn">你喜欢什么？</div>
+      </div>
+
+      <!-- No, I don't! （跨两格）-->
+      <div class="story-panel sp-no" style="grid-column: span 2;" onclick="tap(this,'No, I don\'t.')">
+        <div class="sp-scene">👧 😣</div>
+        <div class="sp-text">No, I don't!</div>
+        <div class="sp-chn">不，我不喜欢！</div>
+      </div>
+
+    </div>
+
+    <!-- ══ 第二排：我喜欢（3格） ══ -->
+    <div class="story-row2">
+
+      <!-- 我喜欢红草莓 -->
+      <div class="story-panel sp-like" onclick="tap(this,'I like red strawberries.')">
+        <div class="sp-scene">🧒 🍓</div>
+        <div class="sp-text">I 👍🍓</div>
+        <div class="sp-chn">我喜欢红草莓</div>
+      </div>
+
+      <!-- 我喜欢紫葡萄 -->
+      <div class="story-panel sp-like" onclick="tap(this,'I like purple grapes.')">
+        <div class="sp-scene">🧒 🍇</div>
+        <div class="sp-text">I 👍🍇</div>
+        <div class="sp-chn">我喜欢紫葡萄</div>
+      </div>
+
+      <!-- 我喜欢橙色的橙子 -->
+      <div class="story-panel sp-like" onclick="tap(this,'I like orange oranges.')">
+        <div class="sp-scene">🧒 🍊</div>
+        <div class="sp-text">I 👍🍊</div>
+        <div class="sp-chn">我喜欢橙子</div>
+      </div>
+
+    </div>
+
+    <!-- ══ 第三排：购买 + 礼貌用语（2x2） ══ -->
+    <div class="story-row3">
+
+      <!-- Two apples, please. -->
+      <div class="story-panel sp-buy" onclick="tap(this,'Two red apples, please.')">
+        <div class="sp-scene">👧 🍎🍎</div>
+        <div class="sp-text">2 🍎, please.</div>
+        <div class="sp-chn">两个红苹果，谢谢</div>
+      </div>
+
+      <!-- Three strawberries, please. -->
+      <div class="story-panel sp-buy" onclick="tap(this,'Three strawberries, please.')">
+        <div class="sp-scene">👩 🍓🍓🍓</div>
+        <div class="sp-text">3 🍓, please.</div>
+        <div class="sp-chn">三个草莓，谢谢</div>
+      </div>
+
+      <!-- Here you are. -->
+      <div class="story-panel polite" onclick="tap(this,'Here you are.')">
+        <div class="sp-scene">👨‍🌾 🛒</div>
+        <div class="sp-text">Here you are.</div>
+        <div class="sp-chn">给你</div>
+      </div>
+
+      <!-- Thank you! / You're welcome. 合并格 -->
+      <div class="story-panel polite" style="display:flex;flex-direction:column;gap:8px;" onclick="tap(this,'Thank you. You\'re welcome.')">
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+          <span style="font-size:24px;">👧 😊</span>
+          <div>
+            <div class="sp-text" style="font-size:16px;">Thank you!</div>
+            <div class="sp-chn">谢谢！</div>
+          </div>
+        </div>
+        <div style="border-top:1px dashed #ddd;padding-top:6px;display:flex;align-items:center;gap:6px;justify-content:center;">
+          <span style="font-size:24px;">👨‍🌾 😊</span>
+          <div>
+            <div class="sp-text" style="font-size:16px;">You're welcome.</div>
+            <div class="sp-chn">不客气</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ 语言点 ══ -->
+    <div class="lang-bar">
+      <strong>💡 Language 语言点：</strong><br>
+      Do you like (green apples)? No, I don't. —— 你喜欢（青苹果）吗？不，我不喜欢。<br>
+      What do you like? I like (red strawberries). —— 你喜欢什么？我喜欢（红草莓）。<br>
+      (Two/Three) (red apples), please. Here you are. Thank you! You're welcome.<br>
+      <span style="color:#888;font-size:12px;">学生角色扮演买水果时使用礼貌用语。</span>
+    </div>
+
   </div>
 
   <div class="bot-nav">
     <button onclick="go('pg-cover')">← 封面</button>
-    <span class="tip">👆 点单词卡听发音，下方有中文</span>
+    <span class="tip">👆 点击每个格子听发音</span>
     <button onclick="go('pg-dialog')">下一页 →</button>
   </div>
 </div>
 
 <!-- ═════════════════════════════════
-     第2页：重点句型对话
+     第2页：句型练习（逐句点读）
 ═════════════════════════════════ -->
 <div class="page" id="pg-dialog">
   <div class="top-bar">
     <div class="left">
-      <div class="sub">Session 4 · 句型 Sentences</div>
-      <div class="main">重点句型 🗣️</div>
+      <div class="sub">Session 4 · Sentences</div>
+      <div class="main">句型练习 🗣️</div>
     </div>
-    <div class="pg">2/4</div>
+    <div class="pg">2/3</div>
   </div>
 
   <div class="speed-bar">
@@ -384,34 +458,63 @@ body {
 
   <div class="grandma-tip">
     <span class="label">👵 爷爷奶奶看这里：</span><br>
-    点下面的句子，听发音，让孩子跟着读。然后问孩子："绿色的苹果用英语怎么说？"
+    这里把所有句子放大了，方便孩子跟读。可以和孩子轮流扮演买家和售货员。
   </div>
 
   <div class="dialog-section">
-    <h3>🗣️ 点击句子听发音</h3>
+    <h3>🗣️ 点击句子听发音并跟读</h3>
 
-    <!-- 问句 -->
+    <!-- 问句组 -->
     <div class="dialog-card buyer" onclick="tap(this,'Do you like green apples?')">
       <div class="dc-scene">👩 🍏</div>
       <div class="dc-eng ask">Do you like green apples?</div>
       <div class="dc-chn">你喜欢青苹果吗？</div>
     </div>
 
-    <!-- 回答：不喜欢+喜欢 -->
-    <div class="dialog-card buyer" onclick="tap(this,'No, I don\'t. I like red apples.')">
-      <div class="dc-scene">👧 🍎</div>
-      <div class="dc-eng answer">No, I don't.</div>
-      <div class="dc-chn">不，我不喜欢。</div>
-      <div style="height:8px;"></div>
-      <div class="dc-eng like">I like red apples.</div>
-      <div class="dc-chn">我喜欢红苹果。</div>
+    <!-- 否定回答 -->
+    <div class="dialog-card buyer" onclick="tap(this,'No, I don\'t.')">
+      <div class="dc-scene">👧 😣</div>
+      <div class="dc-eng answer">No, I don't!</div>
+      <div class="dc-chn">不，我不喜欢！</div>
     </div>
 
-    <!-- 购买 -->
+    <!-- 追问 -->
+    <div class="dialog-card buyer" onclick="tap(this,'What do you like?')">
+      <div class="dc-scene">👩 🤔</div>
+      <div class="dc-eng ask">What do you like?</div>
+      <div class="dc-chn">你喜欢什么？</div>
+    </div>
+
+    <!-- 喜欢的回答 × 3 -->
+    <div class="dialog-card buyer" onclick="tap(this,'I like red strawberries.')">
+      <div class="dc-scene">🧒 🍓</div>
+      <div class="dc-eng like">I like red strawberries.</div>
+      <div class="dc-chn">我喜欢红草莓。</div>
+    </div>
+
+    <div class="dialog-card buyer" onclick="tap(this,'I like purple grapes.')">
+      <div class="dc-scene">🧒 🍇</div>
+      <div class="dc-eng like">I like purple grapes.</div>
+      <div class="dc-chn">我喜欢紫葡萄。</div>
+    </div>
+
+    <div class="dialog-card buyer" onclick="tap(this,'I like orange oranges.')">
+      <div class="dc-scene">🧒 🍊</div>
+      <div class="dc-eng like">I like orange oranges.</div>
+      <div class="dc-chn">我喜欢橙子。</div>
+    </div>
+
+    <!-- 购买句子 -->
     <div class="dialog-card buyer" onclick="tap(this,'Two red apples, please.')">
       <div class="dc-scene">👧 🍎🍎</div>
-      <div class="dc-eng like">Two red apples, please.</div>
+      <div class="dc-eng buy">Two red apples, please.</div>
       <div class="dc-chn">两个红苹果，谢谢。</div>
+    </div>
+
+    <div class="dialog-card buyer" onclick="tap(this,'Three strawberries, please.')">
+      <div class="dc-scene">👩 🍓🍓🍓</div>
+      <div class="dc-eng buy">Three strawberries, please.</div>
+      <div class="dc-chn">三个草莓，谢谢。</div>
     </div>
 
     <!-- 礼貌用语 -->
@@ -421,140 +524,35 @@ body {
       <div class="dc-chn">给你。</div>
     </div>
 
-    <div class="dialog-card buyer" onclick="tap(this,'Thank you.')">
+    <div class="dialog-card buyer polite" onclick="tap(this,'Thank you.')">
       <div class="dc-scene">👧 😊</div>
-      <div class="dc-eng polite">Thank you.</div>
-      <div class="dc-chn">谢谢。</div>
+      <div class="dc-eng polite">Thank you!</div>
+      <div class="dc-chn">谢谢！</div>
     </div>
 
-    <div class="dialog-card seller" onclick="tap(this,'You are welcome.')">
+    <div class="dialog-card seller polite" onclick="tap(this,'You are welcome.')">
       <div class="dc-scene">👨‍🌾 😊</div>
       <div class="dc-eng polite">You're welcome.</div>
       <div class="dc-chn">不客气。</div>
     </div>
+
   </div>
 
   <div class="chn-bar">
-    <span class="label">💡 句型总结：</span><br>
-    Do you like (green apples)? —— 你喜欢（青苹果）吗？<br>
-    No, I don't. I like (red apples). —— 不，我不喜欢。我喜欢（红苹果）。<br>
-    Two (red apples), please. —— 两个（红苹果），谢谢。<br>
-    Here you are. / Thank you. / You're welcome. —— 给你。/ 谢谢。/ 不客气。
+    <span class="label">💡 角色扮演提示：</span><br>
+    <strong>买家说：</strong>Do you like...? / No, I don't. / I like... / ...please. / Thank you!<br>
+    <strong>售货员说：</strong>Here you are. / You're welcome.
   </div>
 
   <div class="bot-nav">
-    <button onclick="go('pg-words')">← 上一页</button>
+    <button onclick="go('pg-story')">← 上一页</button>
     <span class="tip">👆 点句子听发音，下方有中文</span>
-    <button onclick="go('pg-story')">下一页 →</button>
-  </div>
-</div>
-
-<!-- ═════════════════════════════════
-     第3页：完整故事流程
-═════════════════════════════════ -->
-<div class="page" id="pg-story">
-  <div class="top-bar">
-    <div class="left">
-      <div class="sub">Session 4 · Story</div>
-      <div class="main">故事时间 📖</div>
-    </div>
-    <div class="pg">3/4</div>
-  </div>
-
-  <div class="speed-bar">
-    <span class="speed-label">🎵 语速</span>
-    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
-    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
-    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
-  </div>
-
-  <div class="grandma-tip">
-    <span class="label">👵 爷爷奶奶看这里：</span><br>
-    这是一个完整的故事，按顺序点击每一步，让孩子跟着听、跟着读。可以和孩子轮流扮演买家和售货员。
-  </div>
-
-  <div class="story-flow">
-    <h3 style="color:#2e7d32; font-size:17px; margin-bottom:14px; text-align:center;">📖 买水果的故事</h3>
-
-    <div class="story-step">
-      <div class="step-num">1</div>
-      <div class="step-content" onclick="tap(this,'Do you like green apples?')">
-        <div class="se-scene">👩 🍏</div>
-        <div class="se-eng" style="color:#1565c0;">Do you like green apples?</div>
-        <div class="se-chn">你喜欢青苹果吗？</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">2</div>
-      <div class="step-content" onclick="tap(this,'No, I don\'t.')">
-        <div class="se-scene">👧 😣</div>
-        <div class="se-eng" style="color:#c62828;">No, I don't!</div>
-        <div class="se-chn">不，我不喜欢！</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">3</div>
-      <div class="step-content" onclick="tap(this,'I like red apples.')">
-        <div class="se-scene">👧 🍎</div>
-        <div class="se-eng" style="color:#2e7d32;">I like red apples.</div>
-        <div class="se-chn">我喜欢红苹果。</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">4</div>
-      <div class="step-content" onclick="tap(this,'Two red apples, please.')">
-        <div class="se-scene">👧 🍎🍎</div>
-        <div class="se-eng" style="color:#2e7d32;">Two red apples, please.</div>
-        <div class="se-chn">两个红苹果，谢谢。</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">5</div>
-      <div class="step-content" onclick="tap(this,'Here you are.')">
-        <div class="se-scene">👨‍🌾 🛒</div>
-        <div class="se-eng" style="color:#f57f17;">Here you are.</div>
-        <div class="se-chn">给你。</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">6</div>
-      <div class="step-content" onclick="tap(this,'Thank you.')">
-        <div class="se-scene">👧 😊</div>
-        <div class="se-eng" style="color:#f57f17;">Thank you!</div>
-        <div class="se-chn">谢谢！</div>
-      </div>
-    </div>
-
-    <div class="story-step">
-      <div class="step-num">7</div>
-      <div class="step-content" onclick="tap(this,'You are welcome.')">
-        <div class="se-scene">👨‍🌾 😊</div>
-        <div class="se-eng" style="color:#f57f17;">You're welcome!</div>
-        <div class="se-chn">不客气！</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="chn-bar">
-    <span class="label">💡 故事顺序：</span><br>
-    ① 问喜好 → ② 不喜欢 → ③ 喜欢什么 → ④ 买几个 → ⑤ 给你 → ⑥ 谢谢 → ⑦ 不客气<br>
-    <span style="color:#888;">这就是在市场买水果的完整对话流程！</span>
-  </div>
-
-  <div class="bot-nav">
-    <button onclick="go('pg-dialog')">← 上一页</button>
-    <span class="tip">👆 按顺序点每一步听故事</span>
     <button onclick="go('pg-hw')">下一页 →</button>
   </div>
 </div>
 
 <!-- ═════════════════════════════════
-     第4页：作业 + 练习
+     第3页：作业 + 练习
 ═════════════════════════════════ -->
 <div class="page" id="pg-hw">
   <div class="top-bar">
@@ -562,7 +560,7 @@ body {
       <div class="sub">Session 4 · Homework</div>
       <div class="main">作业 &amp; 练习 ✏️</div>
     </div>
-    <div class="pg">4/4</div>
+    <div class="pg">3/3</div>
   </div>
 
   <div class="speed-bar">
@@ -573,32 +571,24 @@ body {
   </div>
 
   <div class="hw-body">
-    <h3>📝 作业要求</h3>
+    <h3>📝 课后练习</h3>
 
     <div class="hw-item">
       <div class="hw-num">1</div>
-      <div class="hw-text">
-        跟读课后复习视频，练习本课对话。
-      </div>
+      <div class="hw-text">跟读课后复习视频</div>
     </div>
 
     <div class="hw-item">
       <div class="hw-num">2</div>
       <div class="hw-text">
         和爸爸妈妈/爷爷奶奶互动：角色扮演买水果！<br>
-        <div class="chn-bar" style="margin:8px 0 0 0;">
-          <strong>买家：</strong>Do you like green apples? —— 你喜欢青苹果吗？<br>
-          <strong>卖家：</strong>No, I don't. I like red apples. —— 不，我喜欢红苹果。<br>
-          <strong>买家：</strong>Two red apples, please. —— 两个红苹果，谢谢。<br>
-          <strong>卖家：</strong>Here you are. —— 给你。<br>
-          <strong>买家：</strong>Thank you! —— 谢谢！<br>
-          <strong>卖家：</strong>You're welcome! —— 不客气！
-        </div>
         <div class="practice-btns" style="margin-top:10px;">
           <button class="pb" onclick="tap(this,'Do you like green apples?')">🍏 你喜欢青苹果吗？</button>
           <button class="pb" onclick="tap(this,'No, I don\'t.')">❌ 不，我不喜欢</button>
-          <button class="pb" onclick="tap(this,'I like red apples.')">🍎 我喜欢红苹果</button>
-          <button class="pb" onclick="tap(this,'Two red apples, please.')">🍎🍎 两个红苹果，谢谢</button>
+          <button class="pb" onclick="tap(this,'What do you like?')">🤔 你喜欢什么？</button>
+          <button class="pb" onclick="tap(this,'I like red strawberries.')">🍓 我喜欢红草莓</button>
+          <button class="pb" onclick="tap(this,'Two red apples, please.')">🍎🍎 两个红苹果</button>
+          <button class="pb" onclick="tap(this,'Three strawberries, please.')">🍓🍓🍓 三个草莓</button>
           <button class="pb" onclick="tap(this,'Here you are.')">🛒 给你</button>
           <button class="pb" onclick="tap(this,'Thank you.')">🙏 谢谢</button>
           <button class="pb" onclick="tap(this,'You are welcome.')">😊 不客气</button>
@@ -609,13 +599,14 @@ body {
     <div class="hw-item">
       <div class="hw-num">3</div>
       <div class="hw-text">
-        完成 <strong>Notebook</strong> 练习：用礼貌用语和同学角色扮演买水果。
+        完成 <strong>Notebook 练习本</strong>：<br>
+        学生角色扮演买水果时使用礼貌用语。
       </div>
     </div>
   </div>
 
   <div class="bot-nav">
-    <button onclick="go('pg-story')">← 上一页</button>
+    <button onclick="go('pg-dialog')">← 上一页</button>
     <span class="tip">加油！Good job! 🌟</span>
     <button onclick="go('pg-cover')">回封面</button>
   </div>
