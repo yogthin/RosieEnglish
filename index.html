@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Topic 5 Session 3 - Do you like strawberries?</title>
+<title>Roise English - Topic 5 Session 3</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -42,10 +42,17 @@ body {
   padding: 50px 30px 40px;
   text-align: center;
 }
-.cover .book-icon { font-size: 70px; margin-bottom: 18px; }
-.cover .series { font-size: 14px; opacity: .8; margin-bottom: 4px; }
-.cover .act    { font-size: 18px; font-weight: bold; margin-bottom: 2px; }
-.cover .topic  { font-size: 26px; font-weight: bold; margin-bottom: 6px; }
+.cover .logo { font-size: 70px; margin-bottom: 10px; }
+.cover .brand {
+  font-size: 32px; font-weight: bold; letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.cover .subtitle { font-size: 15px; opacity: .85; margin-bottom: 18px; }
+.cover .divider {
+  width: 60px; height: 3px; background: rgba(255,255,255,.5);
+  margin: 0 auto 18px; border-radius: 2px;
+}
+.cover .topic  { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
 .cover .session-badge {
   display: inline-block;
   background: rgba(255,255,255,.25);
@@ -110,6 +117,7 @@ body {
 .fruit-card:active { transform: scale(.94); }
 .fruit-card .emoji { font-size: 48px; display: block; margin-bottom: 6px; }
 .fruit-card .eng   { font-size: 16px; font-weight: bold; color: #333; }
+.fruit-card .chn   { font-size: 12px; color: #999; margin-top: 2px; }
 
 /* 颜色卡 */
 .color-block {
@@ -146,6 +154,7 @@ body {
 .color-name {
   font-size: 18px; font-weight: bold; color: #333;
 }
+.color-card .chn { font-size: 12px; color: #999; margin-top: 2px; }
 
 /* ──────── 第37页 Role-play ──────── */
 .p37-body { padding: 0 0 10px; background: #fff9f0; }
@@ -232,6 +241,7 @@ body {
 .rp-line.ask      { color: #1565c0; }
 .rp-line.like     { color: #2e7d32; }
 .rp-line.dislike  { color: #c62828; }
+.rp-line .chn { display: block; font-size: 12px; font-weight: normal; color: #888; margin-top: 2px; }
 
 /* ──────── 第38页 Story ──────── */
 .p38-body { padding: 16px; background: #fff; }
@@ -249,6 +259,7 @@ body {
 .story-panel .sp-text  {
   font-size: 18px; font-weight: bold; color: #333; line-height: 1.4;
 }
+.story-panel .sp-chn { font-size: 12px; color: #888; margin-top: 4px; }
 .story-panel .sp-sub   { font-size: 12px; color: #888; margin-top: 4px; }
 
 .story-row3 {
@@ -263,6 +274,7 @@ body {
 .like-panel:active { transform: scale(.94); }
 .like-panel .lp-emoji { font-size: 34px; margin-bottom: 4px; }
 .like-panel .lp-text  { font-size: 15px; font-weight: bold; color: #2e7d32; }
+.like-panel .lp-chn   { font-size: 11px; color: #888; margin-top: 2px; }
 
 .story-buy {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
@@ -276,6 +288,7 @@ body {
 .buy-panel:active { transform: scale(.95); }
 .buy-panel .bp-scene { font-size: 32px; margin-bottom: 5px; }
 .buy-panel .bp-text  { font-size: 16px; font-weight: bold; color: #1565c0; }
+.buy-panel .bp-chn   { font-size: 11px; color: #888; margin-top: 2px; }
 
 /* ──────── 作业页 ──────── */
 .hw-body { padding: 20px 18px; }
@@ -324,16 +337,23 @@ body {
 .speed-bar button.active {
   background: #e53935; color: white; border-color: #e53935;
 }
-.speed-bar .speed-emoji { font-size: 18px; }
 
-/* ──────── 语言提示条 ──────── */
-.lang-bar {
+/* ──────── 中文提示条 ──────── */
+.chn-bar {
   margin: 0 16px 12px;
-  background: #fffde7; border-left: 5px solid #fbc02d;
+  background: #e8f5e9; border-left: 5px solid #4caf50;
   padding: 10px 14px; border-radius: 0 8px 8px 0;
-  font-size: 13px; color: #666; line-height: 1.9;
+  font-size: 13px; color: #333; line-height: 1.9;
 }
-.lang-bar strong { color: #f57c00; }
+.chn-bar .label { font-weight: bold; color: #2e7d32; }
+
+.grandma-tip {
+  background: #fff9c4; border: 2px solid #fbc02d;
+  border-radius: 12px; padding: 10px 14px;
+  margin: 0 16px 12px;
+  font-size: 13px; color: #666; line-height: 1.8;
+}
+.grandma-tip .label { font-weight: bold; color: #f57c00; }
 
 /* ──────── 动画 ──────── */
 .pop { animation: pop .35s ease; }
@@ -346,27 +366,28 @@ body {
 <body>
 <div class="app">
 
-<!-- ══════════════════════════════════
+<!-- ═════════════════════════════════
      封面
-══════════════════════════════════ -->
+═════════════════════════════════ -->
 <div class="page active" id="pg-cover">
   <div class="cover">
-    <div class="book-icon">🍓</div>
-    <div class="series">New Standard English · 一年级下册</div>
-    <div class="act">Act 1 · Topic 5 · I like to eat</div>
-    <div class="topic">Do you like strawberries?</div>
-    <div class="session-badge">Session 3 · Thematic Role-play</div>
+    <div class="logo">🍓</div>
+    <div class="brand">Roise English</div>
+    <div class="subtitle">English Learning for Kids</div>
+    <div class="divider"></div>
+    <div class="topic">I like to eat 🍎</div>
+    <div class="session-badge">Topic 5 · Session 3</div>
     <div class="scene-desc">
-      📍 场景：水果摊<br>
-      🎯 重点：角色扮演 · 谈论食物偏好和颜色
+      📍 场景：水果摊买水果<br>
+      🎯 目标：学会表达喜欢/不喜欢的食物
     </div>
     <button class="btn-start" onclick="go('pg-words')">开始学习 ▶</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════
+<!-- ═════════════════════════════════
      第1页：单词学习
-══════════════════════════════════ -->
+═════════════════════════════════ -->
 <div class="page" id="pg-words">
   <div class="top-bar">
     <div class="left">
@@ -383,6 +404,12 @@ body {
     <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
   </div>
 
+  <!-- 爷爷奶奶提示 -->
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    点一下水果卡片，听英语发音，然后问孩子："这个用英语怎么说？"
+  </div>
+
   <div class="vocab-body">
 
     <!-- ── 水果区 ── -->
@@ -391,22 +418,27 @@ body {
       <div class="fruit-card" onclick="tap(this,'strawberries')">
         <span class="emoji">🍓</span>
         <div class="eng">strawberries</div>
+        <div class="chn">草莓</div>
       </div>
       <div class="fruit-card" onclick="tap(this,'oranges')">
         <span class="emoji">🍊</span>
         <div class="eng">oranges</div>
+        <div class="chn">橙子</div>
       </div>
       <div class="fruit-card" onclick="tap(this,'grapes')">
         <span class="emoji">🍇</span>
         <div class="eng">grapes</div>
+        <div class="chn">葡萄</div>
       </div>
       <div class="fruit-card" onclick="tap(this,'lemons')">
         <span class="emoji">🍋</span>
         <div class="eng">lemons</div>
+        <div class="chn">柠檬</div>
       </div>
       <div class="fruit-card" onclick="tap(this,'apples')">
         <span class="emoji">🍎</span>
         <div class="eng">apples</div>
+        <div class="chn">苹果</div>
       </div>
     </div>
 
@@ -417,18 +449,22 @@ body {
         <div class="color-card" style="border-color:#e53935" onclick="tap(this,'red')">
           <span class="color-swatch" style="background:#e53935"></span>
           <span class="color-name">red</span>
+          <div class="chn">红色</div>
         </div>
         <div class="color-card" style="border-color:#ff9800" onclick="tap(this,'orange')">
           <span class="color-swatch" style="background:#ff9800"></span>
           <span class="color-name">orange</span>
+          <div class="chn">橙色</div>
         </div>
         <div class="color-card" style="border-color:#9c27b0" onclick="tap(this,'purple')">
           <span class="color-swatch" style="background:#9c27b0"></span>
           <span class="color-name">purple</span>
+          <div class="chn">紫色</div>
         </div>
         <div class="color-card" style="border-color:#f9a825" onclick="tap(this,'yellow')">
           <span class="color-swatch" style="background:#f9a825"></span>
           <span class="color-name">yellow</span>
+          <div class="chn">黄色</div>
         </div>
       </div>
     </div>
@@ -436,21 +472,21 @@ body {
 
   <div class="bot-nav">
     <button onclick="go('pg-cover')">← 封面</button>
-    <span class="tip">👆 点单词卡或颜色块听发音</span>
+    <span class="tip">👆 点单词卡听发音，下方有中文</span>
     <button onclick="go('pg-37')">下一页 →</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════
+<!-- ═════════════════════════════════
      第2页：第37页 Role-play
-══════════════════════════════════ -->
+═════════════════════════════════ -->
 <div class="page" id="pg-37">
   <div class="top-bar">
     <div class="left">
-      <div class="sub">Session 3 · Thematic Role-play</div>
-      <div class="main">角色扮演</div>
+      <div class="sub">Session 3 · Role-play</div>
+      <div class="main">角色扮演 🎭</div>
     </div>
-    <div class="pg">37</div>
+    <div class="pg">2/4</div>
   </div>
 
   <div class="speed-bar">
@@ -485,10 +521,11 @@ body {
       <!-- 售货员 -->
       <div class="seller-wrap" onclick="tap(this,'Do you like purple grapes?')">
         <div class="s-avatar">👨‍🌾</div>
-        <div class="s-role">Seller</div>
+        <div class="s-role">Seller 售货员</div>
       </div>
       <div class="seller-bubble" onclick="tap(this,'Do you like purple grapes?')">
-        Do you 👍🍇?
+        Do you like purple grapes?
+        <div style="font-size:11px;font-weight:normal;color:#888;">你喜欢紫葡萄吗？</div>
       </div>
     </div>
 
@@ -504,8 +541,14 @@ body {
             <div class="p-av">👧</div><div class="p-name">Anne</div>
           </div>
         </div>
-        <div class="rp-line ask"     onclick="tap(this,'Do you like red strawberries?')">Do you like 🍓?</div>
-        <div class="rp-line like"    onclick="tap(this,'I like red strawberries.')">I 👍🍓</div>
+        <div class="rp-line ask" onclick="tap(this,'Do you like red strawberries?')">
+          Do you like red strawberries?
+          <span class="chn">你喜欢红草莓吗？</span>
+        </div>
+        <div class="rp-line like" onclick="tap(this,'I like red strawberries.')">
+          I like red strawberries.
+          <span class="chn">我喜欢红草莓。</span>
+        </div>
       </div>
       <!-- 橙子 -->
       <div class="rp-card orange">
@@ -517,15 +560,27 @@ body {
             <div class="p-av">👧</div><div class="p-name">Anne</div>
           </div>
         </div>
-        <div class="rp-line ask"    onclick="tap(this,'Do you like orange oranges?')">Do you like 🍊?</div>
-        <div class="rp-line dislike" onclick="tap(this,'I don\'t like orange oranges.')">I 👎🍊</div>
+        <div class="rp-line ask" onclick="tap(this,'Do you like orange oranges?')">
+          Do you like orange oranges?
+          <span class="chn">你喜欢橙色的橙子吗？</span>
+        </div>
+        <div class="rp-line dislike" onclick="tap(this,'I don\'t like orange oranges.')">
+          I don't like orange oranges.
+          <span class="chn">我不喜欢橙色的橙子。</span>
+        </div>
       </div>
     </div>
 
-    <div class="lang-bar">
-      <strong>💡 Language 语言点</strong><br>
-      Do you like (red) (strawberries)?<br>
-      I like / don't like (red) (strawberries).
+    <!-- 爷爷奶奶提示 -->
+    <div class="grandma-tip">
+      <span class="label">👵 爷爷奶奶看这里：</span><br>
+      点上面的句子，听发音。问孩子："Do you like red strawberries?" 让孩子回答："I like red strawberries." 或 "I don't like..."
+    </div>
+
+    <div class="chn-bar">
+      <span class="label">💡 句型总结：</span><br>
+      Do you like (red) (strawberries)? —— 你喜欢（红色）（草莓）吗？<br>
+      I like / I don't like (red) (strawberries). —— 我喜欢/不喜欢（红色）（草莓）。
     </div>
   </div>
 
@@ -536,16 +591,16 @@ body {
   </div>
 </div>
 
-<!-- ══════════════════════════════════
+<!-- ═════════════════════════════════
      第3页：第38页 Story
-══════════════════════════════════ -->
+═════════════════════════════════ -->
 <div class="page" id="pg-38">
   <div class="top-bar">
     <div class="left">
       <div class="sub">Session 3 · Story</div>
-      <div class="main">Act out the story 🎭</div>
+      <div class="main">故事时间 📖</div>
     </div>
-    <div class="pg">38</div>
+    <div class="pg">3/4</div>
   </div>
 
   <div class="speed-bar">
@@ -560,17 +615,20 @@ body {
     <div class="story-grid">
       <div class="story-panel" onclick="tap(this,'Do you like green apples?')">
         <div class="sp-scene">👩 🍏</div>
-        <div class="sp-text">Do you like 🍏?</div>
+        <div class="sp-text">Do you like green apples?</div>
+        <div class="sp-chn">你喜欢青苹果吗？</div>
         <div class="sp-sub">点击听发音</div>
       </div>
       <div class="story-panel" onclick="tap(this,'No, I don\'t.')">
         <div class="sp-scene">👧 😣</div>
         <div class="sp-text">No, I don't!</div>
+        <div class="sp-chn">不，我不喜欢！</div>
         <div class="sp-sub">点击听发音</div>
       </div>
       <div class="story-panel" onclick="tap(this,'What do you like?')">
         <div class="sp-scene">👩 🤔</div>
         <div class="sp-text">What do you like?</div>
+        <div class="sp-chn">你喜欢什么？</div>
         <div class="sp-sub">点击听发音</div>
       </div>
     </div>
@@ -579,15 +637,18 @@ body {
     <div class="story-row3">
       <div class="like-panel" onclick="tap(this,'I like red strawberries.')">
         <div class="lp-emoji">🍓</div>
-        <div class="lp-text">I 👍🍓</div>
+        <div class="lp-text">I like red strawberries.</div>
+        <div class="lp-chn">我喜欢红草莓。</div>
       </div>
       <div class="like-panel" onclick="tap(this,'I like purple grapes.')">
         <div class="lp-emoji">🍇</div>
-        <div class="lp-text">I 👍🍇</div>
+        <div class="lp-text">I like purple grapes.</div>
+        <div class="lp-chn">我喜欢紫葡萄。</div>
       </div>
       <div class="like-panel" onclick="tap(this,'I like orange oranges.')">
         <div class="lp-emoji">🍊</div>
-        <div class="lp-text">I 👍🍊</div>
+        <div class="lp-text">I like orange oranges.</div>
+        <div class="lp-chn">我喜欢橙子。</div>
       </div>
     </div>
 
@@ -595,32 +656,38 @@ body {
     <div class="story-buy">
       <div class="buy-panel" onclick="tap(this,'Two strawberries, please.')">
         <div class="bp-scene">👧 🍓🍓</div>
-        <div class="bp-text">2 🍓, please.</div>
+        <div class="bp-text">Two strawberries, please.</div>
+        <div class="bp-chn">请给我两个草莓。</div>
       </div>
       <div class="buy-panel" onclick="tap(this,'Three strawberries, please.')">
         <div class="bp-scene">👩 🍓🍓🍓</div>
-        <div class="bp-text">3 🍓, please.</div>
+        <div class="bp-text">Three strawberries, please.</div>
+        <div class="bp-chn">请给我三个草莓。</div>
       </div>
       <div class="buy-panel" onclick="tap(this,'Here you are.')">
-        <div class="bp-scene">👨‍🌾 🛍️</div>
+        <div class="bp-scene">👨‍🌾 🛒</div>
         <div class="bp-text">Here you are.</div>
+        <div class="bp-chn">给你。</div>
       </div>
       <div class="buy-panel" onclick="tap(this,'Thank you.')">
         <div class="bp-scene">👧 😊</div>
         <div class="bp-text">Thank you!</div>
+        <div class="bp-chn">谢谢你！</div>
       </div>
     </div>
 
     <div style="text-align:center; margin-top:10px;">
       <button class="pb" onclick="tap(this,'You are welcome.')" style="font-size:16px; padding:10px 24px;">
-        You're welcome. 👨‍🌾
+        You're welcome. 👨‍🌾 <span style="font-size:12px;color:#888;">不客气。</span>
       </button>
     </div>
 
-    <div class="lang-bar" style="margin-top:12px;">
-      <strong>💡 Story 语言点</strong><br>
-      Do you like (green apples)? No, I don't.<br>
-      I like (red strawberries). Here you are. Thank you! You're welcome.
+    <div class="chn-bar" style="margin-top:12px;">
+      <span class="label">💡 故事句型：</span><br>
+      Do you like (green apples)? —— 你喜欢（青苹果）吗？<br>
+      No, I don't. —— 不，我不喜欢。<br>
+      I like (red strawberries). —— 我喜欢（红草莓）。<br>
+      Here you are. Thank you! You're welcome. —— 给你。谢谢！不客气。
     </div>
   </div>
 
@@ -631,14 +698,14 @@ body {
   </div>
 </div>
 
-<!-- ══════════════════════════════════
+<!-- ═════════════════════════════════
      第4页：作业 + 句型练习
-══════════════════════════════════ -->
+═════════════════════════════════ -->
 <div class="page" id="pg-hw">
   <div class="top-bar">
     <div class="left">
       <div class="sub">Session 3 · Homework</div>
-      <div class="main">作业 &amp; 练习</div>
+      <div class="main">作业 &amp; 练习 ✏️</div>
     </div>
     <div class="pg">4/4</div>
   </div>
@@ -660,17 +727,22 @@ body {
     <div class="hw-item">
       <div class="hw-num">2</div>
       <div class="hw-text">
-        和爸爸妈妈互动：<br>
-        <strong>Do you like (red) (strawberries)?</strong><br>
-        <strong>I like / don't like (red) (strawberries).</strong><br>
+        和爸爸妈妈/爷爷奶奶互动练习：<br>
+        <div class="chn-bar" style="margin:8px 0 0 0;">
+          <strong>问：</strong>Do you like (red) (strawberries)?<br>
+          <span style="color:#666;">你喜欢（红色）（草莓）吗？</span><br>
+          <strong>答：</strong>I like / I don't like (red) (strawberries).<br>
+          <span style="color:#666;">我喜欢/不喜欢（红色）（草莓）。</span>
+        </div>
+        <!-- 练习按钮 -->
         <div class="practice-btns" style="margin-top:10px;">
-          <button class="pb" onclick="tap(this,'Do you like red strawberries?')">🍓 Do you like red strawberries?</button>
-          <button class="pb" onclick="tap(this,'Do you like orange oranges?')">🍊 Do you like orange oranges?</button>
-          <button class="pb" onclick="tap(this,'Do you like purple grapes?')">🍇 Do you like purple grapes?</button>
-          <button class="pb" onclick="tap(this,'Do you like yellow lemons?')">🍋 Do you like yellow lemons?</button>
-          <button class="pb" onclick="tap(this,'Do you like red apples?')">🍎 Do you like red apples?</button>
-          <button class="pb" onclick="tap(this,'I like red strawberries.')">✅ I like red strawberries.</button>
-          <button class="pb" onclick="tap(this,'I don\'t like orange oranges.')">❌ I don't like orange oranges.</button>
+          <button class="pb" onclick="tap(this,'Do you like red strawberries?')">🍓 你喜欢红草莓吗？</button>
+          <button class="pb" onclick="tap(this,'Do you like orange oranges?')">🍊 你喜欢橙子吗？</button>
+          <button class="pb" onclick="tap(this,'Do you like purple grapes?')">🍇 你喜欢紫葡萄吗？</button>
+          <button class="pb" onclick="tap(this,'Do you like yellow lemons?')">🍋 你喜欢黄柠檬吗？</button>
+          <button class="pb" onclick="tap(this,'Do you like red apples?')">🍎 你喜欢红苹果吗？</button>
+          <button class="pb" onclick="tap(this,'I like red strawberries.')">✅ 我喜欢红草莓</button>
+          <button class="pb" onclick="tap(this,'I don\'t like orange oranges.')">❌ 我不喜欢橙子</button>
         </div>
       </div>
     </div>
@@ -712,7 +784,6 @@ function go(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
-  // 更新新页面的语速按钮状态
   updateSpeedBtns();
 }
 
