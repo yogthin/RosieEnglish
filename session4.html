@@ -128,9 +128,9 @@ body {
 .story-header .sh-title { font-size: 22px; font-weight: bold; color: #e53935; }
 .story-header .sh-sub  { font-size: 13px; color: #888; margin-left: auto; }
 
-/* 第一排：问句 + 回答（2格） */
+/* 第一行：问句 → 否定回答 → 追问（纵向三行，对话流） */
 .story-row1 {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px;
 }
 /* 第二排：我喜欢（3格） */
 .story-row2 {
@@ -340,8 +340,8 @@ body {
         <div class="sp-chn">不，我不喜欢！</div>
       </div>
 
-      <!-- 右：What do you like?（跨两格）-->
-      <div class="story-panel sp-ask" style="grid-column: span 2;" onclick="tap(this,'What do you like?')">
+      <!-- 右：What do you like? -->
+      <div class="story-panel sp-ask" onclick="tap(this,'What do you like?')">
         <div class="sp-scene">👩 🤔</div>
         <div class="sp-text">What do you like?</div>
         <div class="sp-chn">你喜欢什么？</div>
