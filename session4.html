@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roise English - Topic 5 Session 4</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #e53935;
+  --green: #43a047;
+}
+
+body {
+  background: #f2f2f2;
+  font-family: "Comic Sans MS", "Microsoft YaHei", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.13);
+  overflow: hidden;
+}
+
+/* ──────── 页面切换 ──────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ──────── 封面 ──────── */
+.cover {
+  background: linear-gradient(160deg, #66bb6a 0%, #2e7d32 100%);
+  color: white;
+  padding: 50px 30px 40px;
+  text-align: center;
+}
+.cover .logo { font-size: 70px; margin-bottom: 10px; }
+.cover .brand {
+  font-size: 32px; font-weight: bold; letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.cover .subtitle { font-size: 15px; opacity: .85; margin-bottom: 18px; }
+.cover .divider {
+  width: 60px; height: 3px; background: rgba(255,255,255,.5);
+  margin: 0 auto 18px; border-radius: 2px;
+}
+.cover .topic  { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+.cover .session-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.25);
+  padding: 4px 18px;
+  border-radius: 20px;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.cover .scene-desc {
+  font-size: 15px; opacity: .9; margin-bottom: 28px; line-height: 1.7;
+}
+.cover .btn-start {
+  background: white; color: #2e7d32;
+  border: none; border-radius: 30px;
+  padding: 14px 40px; font-size: 20px; font-weight: bold;
+  cursor: pointer; transition: transform .2s;
+}
+.cover .btn-start:hover { transform: scale(1.06); }
+
+/* ──────── 通用顶栏 ──────── */
+.top-bar {
+  background: #43a047; color: white;
+  padding: 11px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.top-bar .left .sub  { font-size: 12px; opacity: .85; }
+.top-bar .left .main { font-size: 19px; font-weight: bold; }
+.top-bar .pg {
+  font-size: 20px; font-weight: bold;
+  background: rgba(255,255,255,.22);
+  padding: 3px 14px; border-radius: 14px;
+}
+
+/* ──────── 通用底部导航 ──────── */
+.bot-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 18px;
+  border-top: 1px solid #eee;
+}
+.bot-nav button {
+  border: 2px solid #43a047; background: white; color: #43a047;
+  border-radius: 20px; padding: 8px 22px; font-size: 15px; cursor: pointer;
+  transition: all .2s;
+}
+.bot-nav button:hover { background: #43a047; color: white; }
+.bot-nav .tip { font-size: 13px; color: #aaa; }
+
+/* ──────── 单词页 ──────── */
+.vocab-body { padding: 20px 18px; background: #f1f8e9; }
+.vocab-body h3 { color: #2e7d32; font-size: 17px; margin-bottom: 14px; }
+
+.fruit-cards {
+  display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+}
+.fruit-card {
+  width: 120px; text-align: center;
+  background: white; border-radius: 16px; padding: 14px 10px;
+  border: 3px solid #eee; cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+}
+.fruit-card:hover  { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+.fruit-card:active { transform: scale(.94); }
+.fruit-card .emoji { font-size: 48px; display: block; margin-bottom: 6px; }
+.fruit-card .eng   { font-size: 16px; font-weight: bold; color: #333; }
+.fruit-card .chn   { font-size: 12px; color: #999; margin-top: 2px; }
+
+/* ──────── 市场场景 ──────── */
+.market-scene {
+  background: linear-gradient(180deg, #e3f2fd 0%, #f1f8e9 100%);
+  padding: 24px 16px 28px;
+  position: relative;
+}
+.awning-row { display: flex; justify-content: center; }
+.awning {
+  width: 88%; max-width: 460px; height: 48px;
+  background: repeating-linear-gradient(90deg, #43a047 0 35px, #fff 35px 70px);
+  border-radius: 14px 14px 0 0;
+}
+.counter {
+  width: 88%; max-width: 460px; margin: 0 auto;
+  background: #8d6e63; border-radius: 0 0 10px 10px;
+  padding: 16px 12px;
+  display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+}
+.stall-fruit {
+  text-align: center; cursor: pointer; background: none; border: none; outline: none;
+  transition: transform .15s;
+}
+.stall-fruit:hover  { transform: scale(1.12); }
+.stall-fruit:active { transform: scale(.9); }
+.stall-fruit .sf-emoji { font-size: 44px; display: block; }
+.stall-fruit .sf-word  { font-size: 14px; font-weight: bold; color: white; margin-top: 3px; }
+
+/* ──────── 对话卡 ──────── */
+.dialog-section { padding: 16px; background: #f1f8e9; }
+.dialog-section h3 { color: #2e7d32; font-size: 17px; margin-bottom: 14px; text-align: center; }
+
+.dialog-card {
+  background: white; border-radius: 16px; padding: 16px 14px;
+  margin-bottom: 14px;
+  border: 2px solid #c8e6c9;
+  transition: transform .15s;
+  cursor: pointer;
+}
+.dialog-card:hover { transform: scale(1.02); border-color: #43a047; }
+.dialog-card:active { transform: scale(.97); }
+
+.dialog-card .dc-scene {
+  font-size: 32px; text-align: center; margin-bottom: 8px;
+}
+.dialog-card .dc-eng {
+  font-size: 18px; font-weight: bold; color: #333; text-align: center;
+}
+.dialog-card .dc-chn {
+  font-size: 13px; color: #888; text-align: center; margin-top: 4px;
+}
+
+/* 不同角色颜色 */
+.dialog-card.seller  { background: #e8f5e9; border-color: #66bb6a; }
+.dialog-card.buyer   { background: #e3f2fd; border-color: #42a5f5; }
+.dialog-card.polite  { background: #fff9c4; border-color: #fbc02d; }
+
+.dialog-card .dc-eng.ask    { color: #1565c0; }
+.dialog-card .dc-eng.answer { color: #c62828; }
+.dialog-card .dc-eng.like   { color: #2e7d32; }
+.dialog-card .dc-eng.polite { color: #f57f17; }
+
+/* ──────── 完整故事流程 ──────── */
+.story-flow { padding: 16px; }
+.story-step {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+}
+.step-num {
+  width: 36px; height: 36px; min-width: 36px;
+  background: #43a047; color: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 16px;
+}
+.step-content {
+  flex: 1; background: #f1f8e9; border-radius: 12px; padding: 12px 14px;
+  border: 2px solid #c8e6c9;
+  cursor: pointer; transition: transform .15s;
+}
+.step-content:hover { transform: scale(1.02); border-color: #43a047; }
+.step-content:active { transform: scale(.97); }
+.step-content .se-scene { font-size: 28px; margin-bottom: 4px; }
+.step-content .se-eng { font-size: 17px; font-weight: bold; color: #333; }
+.step-content .se-chn { font-size: 13px; color: #888; margin-top: 2px; }
+
+/* ──────── 作业页 ──────── */
+.hw-body { padding: 20px 18px; }
+.hw-body h3 { color: #2e7d32; font-size: 18px; margin-bottom: 16px; }
+.hw-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #f9f9f9; border-radius: 14px; padding: 14px;
+  margin-bottom: 12px;
+}
+.hw-num {
+  width: 32px; height: 32px; min-width: 32px;
+  background: #43a047; color: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 16px;
+}
+.hw-text { font-size: 15px; color: #333; line-height: 1.7; }
+.hw-text strong { color: #1565c0; }
+
+.practice-btns {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+}
+.pb {
+  background: white; border: 2px solid #43a047; color: #43a047;
+  border-radius: 20px; padding: 8px 16px; font-size: 14px;
+  cursor: pointer; transition: all .2s;
+}
+.pb:hover { background: #43a047; color: white; }
+
+/* ──────── 语速调节 ──────── */
+.speed-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: white; border-bottom: 1px solid #eee;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center;
+}
+.speed-bar .speed-label { font-size: 13px; color: #888; }
+.speed-bar button {
+  border: 2px solid #e0e0e0; background: white;
+  border-radius: 16px; padding: 6px 14px; font-size: 14px;
+  font-weight: bold; cursor: pointer; transition: all .15s;
+}
+.speed-bar button:hover  { border-color: #43a047; color: #43a047; }
+.speed-bar button.active {
+  background: #43a047; color: white; border-color: #43a047;
+}
+
+/* ──────── 中文提示条 ──────── */
+.chn-bar {
+  margin: 0 16px 12px;
+  background: #e8f5e9; border-left: 5px solid #43a047;
+  padding: 10px 14px; border-radius: 0 8px 8px 0;
+  font-size: 13px; color: #333; line-height: 1.9;
+}
+.chn-bar .label { font-weight: bold; color: #2e7d32; }
+
+.grandma-tip {
+  background: #fff9c4; border: 2px solid #fbc02d;
+  border-radius: 12px; padding: 10px 14px;
+  margin: 0 16px 12px;
+  font-size: 13px; color: #666; line-height: 1.8;
+}
+.grandma-tip .label { font-weight: bold; color: #f57c00; }
+
+/* ──────── 动画 ──────── */
+.pop { animation: pop .35s ease; }
+@keyframes pop {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═════════════════════════════════
+     封面
+═════════════════════════════════ -->
+<div class="page active" id="pg-cover">
+  <div class="cover">
+    <div class="logo">🍎</div>
+    <div class="brand">Roise English</div>
+    <div class="subtitle">English Learning for Kids</div>
+    <div class="divider"></div>
+    <div class="topic">I like to eat 🍎</div>
+    <div class="session-badge">Topic 5 · Session 4</div>
+    <div class="scene-desc">
+      📍 场景：在市场 Market<br>
+      🎯 目标：角色扮演买水果，使用礼貌用语
+    </div>
+    <button class="btn-start" onclick="go('pg-words')">开始学习 ▶</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第1页：单词复习
+═════════════════════════════════ -->
+<div class="page" id="pg-words">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 4 · 单词 Words</div>
+      <div class="main">水果 🍎 Fruits</div>
+    </div>
+    <div class="pg">1/4</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    点一下水果卡片，听英语发音，然后问孩子："这个用英语怎么说？"
+  </div>
+
+  <div class="vocab-body">
+    <h3>🍎 水果 Fruits — 点击听单词</h3>
+    <div class="fruit-cards">
+      <div class="fruit-card" onclick="tap(this,'apples')">
+        <span class="emoji">🍎</span>
+        <div class="eng">apples</div>
+        <div class="chn">苹果</div>
+      </div>
+      <div class="fruit-card" onclick="tap(this,'green apples')">
+        <span class="emoji">🍏</span>
+        <div class="eng">green apples</div>
+        <div class="chn">青苹果</div>
+      </div>
+      <div class="fruit-card" onclick="tap(this,'red apples')">
+        <span class="emoji">🍎</span>
+        <div class="eng">red apples</div>
+        <div class="chn">红苹果</div>
+      </div>
+      <div class="fruit-card" onclick="tap(this,'strawberries')">
+        <span class="emoji">🍓</span>
+        <div class="eng">strawberries</div>
+        <div class="chn">草莓</div>
+      </div>
+      <div class="fruit-card" onclick="tap(this,'oranges')">
+        <span class="emoji">🍊</span>
+        <div class="eng">oranges</div>
+        <div class="chn">橙子</div>
+      </div>
+      <div class="fruit-card" onclick="tap(this,'grapes')">
+        <span class="emoji">🍇</span>
+        <div class="eng">grapes</div>
+        <div class="chn">葡萄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-cover')">← 封面</button>
+    <span class="tip">👆 点单词卡听发音，下方有中文</span>
+    <button onclick="go('pg-dialog')">下一页 →</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第2页：重点句型对话
+═════════════════════════════════ -->
+<div class="page" id="pg-dialog">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 4 · 句型 Sentences</div>
+      <div class="main">重点句型 🗣️</div>
+    </div>
+    <div class="pg">2/4</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    点下面的句子，听发音，让孩子跟着读。然后问孩子："绿色的苹果用英语怎么说？"
+  </div>
+
+  <div class="dialog-section">
+    <h3>🗣️ 点击句子听发音</h3>
+
+    <!-- 问句 -->
+    <div class="dialog-card buyer" onclick="tap(this,'Do you like green apples?')">
+      <div class="dc-scene">👩 🍏</div>
+      <div class="dc-eng ask">Do you like green apples?</div>
+      <div class="dc-chn">你喜欢青苹果吗？</div>
+    </div>
+
+    <!-- 回答：不喜欢+喜欢 -->
+    <div class="dialog-card buyer" onclick="tap(this,'No, I don\'t. I like red apples.')">
+      <div class="dc-scene">👧 🍎</div>
+      <div class="dc-eng answer">No, I don't.</div>
+      <div class="dc-chn">不，我不喜欢。</div>
+      <div style="height:8px;"></div>
+      <div class="dc-eng like">I like red apples.</div>
+      <div class="dc-chn">我喜欢红苹果。</div>
+    </div>
+
+    <!-- 购买 -->
+    <div class="dialog-card buyer" onclick="tap(this,'Two red apples, please.')">
+      <div class="dc-scene">👧 🍎🍎</div>
+      <div class="dc-eng like">Two red apples, please.</div>
+      <div class="dc-chn">两个红苹果，谢谢。</div>
+    </div>
+
+    <!-- 礼貌用语 -->
+    <div class="dialog-card seller" onclick="tap(this,'Here you are.')">
+      <div class="dc-scene">👨‍🌾 🛒</div>
+      <div class="dc-eng polite">Here you are.</div>
+      <div class="dc-chn">给你。</div>
+    </div>
+
+    <div class="dialog-card buyer" onclick="tap(this,'Thank you.')">
+      <div class="dc-scene">👧 😊</div>
+      <div class="dc-eng polite">Thank you.</div>
+      <div class="dc-chn">谢谢。</div>
+    </div>
+
+    <div class="dialog-card seller" onclick="tap(this,'You are welcome.')">
+      <div class="dc-scene">👨‍🌾 😊</div>
+      <div class="dc-eng polite">You're welcome.</div>
+      <div class="dc-chn">不客气。</div>
+    </div>
+  </div>
+
+  <div class="chn-bar">
+    <span class="label">💡 句型总结：</span><br>
+    Do you like (green apples)? —— 你喜欢（青苹果）吗？<br>
+    No, I don't. I like (red apples). —— 不，我不喜欢。我喜欢（红苹果）。<br>
+    Two (red apples), please. —— 两个（红苹果），谢谢。<br>
+    Here you are. / Thank you. / You're welcome. —— 给你。/ 谢谢。/ 不客气。
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-words')">← 上一页</button>
+    <span class="tip">👆 点句子听发音，下方有中文</span>
+    <button onclick="go('pg-story')">下一页 →</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第3页：完整故事流程
+═════════════════════════════════ -->
+<div class="page" id="pg-story">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 4 · Story</div>
+      <div class="main">故事时间 📖</div>
+    </div>
+    <div class="pg">3/4</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    这是一个完整的故事，按顺序点击每一步，让孩子跟着听、跟着读。可以和孩子轮流扮演买家和售货员。
+  </div>
+
+  <div class="story-flow">
+    <h3 style="color:#2e7d32; font-size:17px; margin-bottom:14px; text-align:center;">📖 买水果的故事</h3>
+
+    <div class="story-step">
+      <div class="step-num">1</div>
+      <div class="step-content" onclick="tap(this,'Do you like green apples?')">
+        <div class="se-scene">👩 🍏</div>
+        <div class="se-eng" style="color:#1565c0;">Do you like green apples?</div>
+        <div class="se-chn">你喜欢青苹果吗？</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">2</div>
+      <div class="step-content" onclick="tap(this,'No, I don\'t.')">
+        <div class="se-scene">👧 😣</div>
+        <div class="se-eng" style="color:#c62828;">No, I don't!</div>
+        <div class="se-chn">不，我不喜欢！</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">3</div>
+      <div class="step-content" onclick="tap(this,'I like red apples.')">
+        <div class="se-scene">👧 🍎</div>
+        <div class="se-eng" style="color:#2e7d32;">I like red apples.</div>
+        <div class="se-chn">我喜欢红苹果。</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">4</div>
+      <div class="step-content" onclick="tap(this,'Two red apples, please.')">
+        <div class="se-scene">👧 🍎🍎</div>
+        <div class="se-eng" style="color:#2e7d32;">Two red apples, please.</div>
+        <div class="se-chn">两个红苹果，谢谢。</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">5</div>
+      <div class="step-content" onclick="tap(this,'Here you are.')">
+        <div class="se-scene">👨‍🌾 🛒</div>
+        <div class="se-eng" style="color:#f57f17;">Here you are.</div>
+        <div class="se-chn">给你。</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">6</div>
+      <div class="step-content" onclick="tap(this,'Thank you.')">
+        <div class="se-scene">👧 😊</div>
+        <div class="se-eng" style="color:#f57f17;">Thank you!</div>
+        <div class="se-chn">谢谢！</div>
+      </div>
+    </div>
+
+    <div class="story-step">
+      <div class="step-num">7</div>
+      <div class="step-content" onclick="tap(this,'You are welcome.')">
+        <div class="se-scene">👨‍🌾 😊</div>
+        <div class="se-eng" style="color:#f57f17;">You're welcome!</div>
+        <div class="se-chn">不客气！</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chn-bar">
+    <span class="label">💡 故事顺序：</span><br>
+    ① 问喜好 → ② 不喜欢 → ③ 喜欢什么 → ④ 买几个 → ⑤ 给你 → ⑥ 谢谢 → ⑦ 不客气<br>
+    <span style="color:#888;">这就是在市场买水果的完整对话流程！</span>
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-dialog')">← 上一页</button>
+    <span class="tip">👆 按顺序点每一步听故事</span>
+    <button onclick="go('pg-hw')">下一页 →</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第4页：作业 + 练习
+═════════════════════════════════ -->
+<div class="page" id="pg-hw">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 4 · Homework</div>
+      <div class="main">作业 &amp; 练习 ✏️</div>
+    </div>
+    <div class="pg">4/4</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="hw-body">
+    <h3>📝 作业要求</h3>
+
+    <div class="hw-item">
+      <div class="hw-num">1</div>
+      <div class="hw-text">
+        跟读课后复习视频，练习本课对话。
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num">2</div>
+      <div class="hw-text">
+        和爸爸妈妈/爷爷奶奶互动：角色扮演买水果！<br>
+        <div class="chn-bar" style="margin:8px 0 0 0;">
+          <strong>买家：</strong>Do you like green apples? —— 你喜欢青苹果吗？<br>
+          <strong>卖家：</strong>No, I don't. I like red apples. —— 不，我喜欢红苹果。<br>
+          <strong>买家：</strong>Two red apples, please. —— 两个红苹果，谢谢。<br>
+          <strong>卖家：</strong>Here you are. —— 给你。<br>
+          <strong>买家：</strong>Thank you! —— 谢谢！<br>
+          <strong>卖家：</strong>You're welcome! —— 不客气！
+        </div>
+        <div class="practice-btns" style="margin-top:10px;">
+          <button class="pb" onclick="tap(this,'Do you like green apples?')">🍏 你喜欢青苹果吗？</button>
+          <button class="pb" onclick="tap(this,'No, I don\'t.')">❌ 不，我不喜欢</button>
+          <button class="pb" onclick="tap(this,'I like red apples.')">🍎 我喜欢红苹果</button>
+          <button class="pb" onclick="tap(this,'Two red apples, please.')">🍎🍎 两个红苹果，谢谢</button>
+          <button class="pb" onclick="tap(this,'Here you are.')">🛒 给你</button>
+          <button class="pb" onclick="tap(this,'Thank you.')">🙏 谢谢</button>
+          <button class="pb" onclick="tap(this,'You are welcome.')">😊 不客气</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num">3</div>
+      <div class="hw-text">
+        完成 <strong>Notebook</strong> 练习：用礼貌用语和同学角色扮演买水果。
+      </div>
+    </div>
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-story')">← 上一页</button>
+    <span class="tip">加油！Good job! 🌟</span>
+    <button onclick="go('pg-cover')">回封面</button>
+  </div>
+</div>
+
+</div><!-- .app -->
+
+<script>
+// ─── 语速设置 ───
+let currentSpeed = 0.72;
+
+function setSpeed(level) {
+  if (level === 'slow')   currentSpeed = 0.55;
+  if (level === 'normal') currentSpeed = 0.72;
+  if (level === 'fast')   currentSpeed = 0.95;
+
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  const target = document.getElementById('speed-' + level);
+  if (target) target.classList.add('active');
+}
+
+// ─── 页面跳转 ───
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  updateSpeedBtns();
+}
+
+function updateSpeedBtns() {
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  let id = 'speed-normal';
+  if (currentSpeed <= 0.55) id = 'speed-slow';
+  else if (currentSpeed >= 0.9) id = 'speed-fast';
+  document.querySelectorAll('#' + id).forEach(b => b.classList.add('active'));
+}
+
+// ─── 语音 + 动画 ───
+function tap(el, text) {
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+  setTimeout(() => el.classList.remove('pop'), 400);
+
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = currentSpeed;
+  u.pitch = 1.15;
+  const voices = speechSynthesis.getVoices();
+  const v = voices.find(v => v.name.includes('Samantha'))
+         || voices.find(v => v.name.includes('Karen'))
+         || voices.find(v => v.lang === 'en-US');
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+
+speechSynthesis.getVoices();
+speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+</script>
+</body>
+</html>
