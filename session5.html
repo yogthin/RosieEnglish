@@ -158,9 +158,11 @@ body {
   background: white; border-radius: 12px;
   padding: 6px 10px; margin: 6px auto 4px;
   border: 2px dashed #ff9800; display: inline-block;
-  letter-spacing: 2px;
+  letter-spacing: 2px; cursor: pointer; transition: transform .15s;
 }
-.sound-card .sc-word { font-size: 17px; font-weight: bold; color: #555; }
+.sound-card .sc-sound:hover { transform: scale(1.08); }
+.sound-card .sc-word { font-size: 17px; font-weight: bold; color: #555; cursor: pointer; transition: transform .15s; }
+.sound-card .sc-word:hover { transform: scale(1.08); }
 .sound-card .sc-chn  { font-size: 11px; color: #888; margin-top: 4px; }
 
 /* 动物卡片不同颜色 */
@@ -309,26 +311,26 @@ body {
     <div class="sounds-row">
 
       <!-- Bumble bee 大黄蜂 -->
-      <div class="sound-card sc-bee" onclick="tap(this,'Buzzzz.')">
+      <div class="sound-card sc-bee">
         <span class="sc-emoji">🐝</span>
-        <div class="sc-sound">buzzzz</div>
-        <div class="sc-word">Bumble bee</div>
+        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Buzzzz.');">buzzzz</div>
+        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Bumble bee.');">Bumble bee</div>
         <div class="sc-chn">大黄蜂</div>
       </div>
 
       <!-- Snake 蛇 -->
-      <div class="sound-card sc-snake" onclick="tap(this,'Sssss.')">
+      <div class="sound-card sc-snake">
         <span class="sc-emoji">🐍</span>
-        <div class="sc-sound">sssss</div>
-        <div class="sc-word">Snake</div>
+        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Sssss.');">sssss</div>
+        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Snake.');">Snake</div>
         <div class="sc-chn">蛇</div>
       </div>
 
       <!-- Cow 牛 -->
-      <div class="sound-card sc-cow" onclick="tap(this,'Moo.')">
+      <div class="sound-card sc-cow">
         <span class="sc-emoji">🐄</span>
-        <div class="sc-sound">moo</div>
-        <div class="sc-word">Cow</div>
+        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Moo.');">moo</div>
+        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Cow.');">Cow</div>
         <div class="sc-chn">牛</div>
       </div>
 
