@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roise English - Topic 5 Session 5</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --green: #43a047;
+  --red: #e53935;
+  --orange: #ef6c00;
+}
+
+body {
+  background: #f2f2f2;
+  font-family: "Comic Sans MS", "Microsoft YaHei", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.13);
+  overflow: hidden;
+}
+
+/* ──────── 页面切换 ──────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ──────── 封面 ──────── */
+.cover {
+  background: linear-gradient(160deg, #ffb74d 0%, #e65100 100%);
+  color: white;
+  padding: 50px 30px 40px;
+  text-align: center;
+}
+.cover .logo { font-size: 70px; margin-bottom: 10px; }
+.cover .brand {
+  font-size: 32px; font-weight: bold; letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.cover .subtitle { font-size: 15px; opacity: .85; margin-bottom: 18px; }
+.cover .divider {
+  width: 60px; height: 3px; background: rgba(255,255,255,.5);
+  margin: 0 auto 18px; border-radius: 2px;
+}
+.cover .topic  { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+.cover .session-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.25);
+  padding: 4px 18px;
+  border-radius: 20px;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.cover .scene-desc {
+  font-size: 15px; opacity: .9; margin-bottom: 28px; line-height: 1.7;
+}
+.cover .btn-start {
+  background: white; color: #e65100;
+  border: none; border-radius: 30px;
+  padding: 14px 40px; font-size: 20px; font-weight: bold;
+  cursor: pointer; transition: transform .2s;
+}
+.cover .btn-start:hover { transform: scale(1.06); }
+
+/* ──────── 通用顶栏 ──────── */
+.top-bar {
+  background: #ef6c00; color: white;
+  padding: 11px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.top-bar .left .sub  { font-size: 12px; opacity: .85; }
+.top-bar .left .main { font-size: 19px; font-weight: bold; }
+.top-bar .pg {
+  font-size: 20px; font-weight: bold;
+  background: rgba(255,255,255,.22);
+  padding: 3px 14px; border-radius: 14px;
+}
+
+/* ──────── 通用底部导航 ──────── */
+.bot-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 18px;
+  border-top: 1px solid #eee;
+}
+.bot-nav button {
+  border: 2px solid #ef6c00; background: white; color: #ef6c00;
+  border-radius: 20px; padding: 8px 22px; font-size: 15px; cursor: pointer;
+  transition: all .2s;
+}
+.bot-nav button:hover { background: #ef6c00; color: white; }
+.bot-nav .tip { font-size: 13px; color: #aaa; }
+
+/* ──────── 语速调节 ──────── */
+.speed-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: white; border-bottom: 1px solid #eee;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center;
+}
+.speed-bar .speed-label { font-size: 13px; color: #888; }
+.speed-bar button {
+  border: 2px solid #e0e0e0; background: white;
+  border-radius: 16px; padding: 6px 14px; font-size: 14px;
+  font-weight: bold; cursor: pointer; transition: all .15s;
+}
+.speed-bar button:hover  { border-color: #ef6c00; color: #ef6c00; }
+.speed-bar button.active {
+  background: #ef6c00; color: white; border-color: #ef6c00;
+}
+
+/* ──────── 爷爷奶奶提示 ──────── */
+.grandma-tip {
+  background: #fff9c4; border: 2px solid #fbc02d;
+  border-radius: 12px; padding: 10px 14px;
+  margin: 0 16px 12px;
+  font-size: 13px; color: #666; line-height: 1.8;
+}
+.grandma-tip .label { font-weight: bold; color: #f57c00; }
+
+/* ════════════ Sounds 页面 — 模仿课本第39页布局 ════════════ */
+.sounds-body { padding: 16px; background: #fff; }
+.sounds-header {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 12px;
+}
+.sounds-header .sh-title { font-size: 24px; font-weight: bold; color: #e65100; }
+.sounds-header .sh-icon { font-size: 26px; }
+.sounds-header .sh-sub  { font-size: 13px; color: #888; margin-left: auto; }
+
+/* 三张动物卡片横排 */
+.sounds-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  margin-bottom: 14px;
+}
+.sound-card {
+  background: linear-gradient(145deg, #fff8e1 0%, #ffe0b2 100%);
+  border-radius: 16px; padding: 16px 10px;
+  cursor: pointer; transition: transform .2s; text-align: center;
+  border: 3px solid #ffcc80; position: relative;
+}
+.sound-card:hover  { transform: scale(1.05) translateY(-4px); box-shadow: 0 8px 24px rgba(230,81,0,.2); border-color: #ef6c00; }
+.sound-card:active { transform: scale(.95); }
+.sound-card .sc-emoji { font-size: 52px; display: block; margin-bottom: 6px; }
+.sound-card .sc-sound {
+  font-size: 28px; font-weight: bold; color: #d84315;
+  background: white; border-radius: 12px;
+  padding: 6px 10px; margin: 6px auto 4px;
+  border: 2px dashed #ff9800; display: inline-block;
+  letter-spacing: 2px;
+}
+.sound-card .sc-word { font-size: 17px; font-weight: bold; color: #555; }
+.sound-card .sc-chn  { font-size: 11px; color: #888; margin-top: 4px; }
+
+/* 动物卡片不同颜色 */
+.sc-bee   { background: linear-gradient(145deg, #fffde7 0%, #fff9c4 100%); border-color: #ffd54f; }
+.sc-snake { background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%); border-color: #a5d6a7; }
+.sc-cow   { background: linear-gradient(145deg, #e3f2fd 0%, #bbdefb 100%); border-color: #90caf9; }
+.sc-bee .sc-sound   { color: #e65100; border-color: #ff9800; }
+.sc-snake .sc-sound { color: #2e7d32; border-color: #66bb6a; }
+.sc-cow .sc-sound   { color: #1565c0; border-color: #42a5f5; }
+
+/* 语言栏 */
+.lang-bar {
+  margin-top: 12px;
+  background: #fffde7; border-left: 5px solid #fbc02d;
+  padding: 12px 14px; border-radius: 0 8px 8px 0;
+  font-size: 13px; color: #555; line-height: 2;
+}
+.lang-bar strong { color: #f57f00; font-size: 14px; }
+
+/* 中文提示条 */
+.chn-bar {
+  margin: 0 16px 12px;
+  background: #e8f5e9; border-left: 5px solid #43a047;
+  padding: 10px 14px; border-radius: 0 8px 8px 0;
+  font-size: 13px; color: #333; line-height: 1.9;
+}
+.chn-bar .label { font-weight: bold; color: #2e7d32; }
+
+/* ════════════ 单词练习页 ════════════ */
+.vocab-section { padding: 16px; background: #fffbe6; }
+.vocab-section h3 { color: #e65100; font-size: 17px; margin-bottom: 14px; text-align: center; }
+
+.vocab-card {
+  display: flex; align-items: center; gap: 14px;
+  background: white; border-radius: 16px; padding: 16px 18px;
+  margin-bottom: 12px;
+  border: 2px solid #ffe082; cursor: pointer;
+  transition: transform .15s;
+}
+.vocab-card:hover { transform: scale(1.03); border-color: #ff9800; box-shadow: 0 4px 16px rgba(230,81,0,.1); }
+.vocab-card:active { transform: scale(.97); }
+
+.vc-emoji { font-size: 44px; min-width: 56px; text-align: center; }
+.vc-info { flex: 1; }
+.vc-eng { font-size: 20px; font-weight: bold; color: #333; }
+.vc-phonetic { font-size: 14px; color: #e65100; font-style: italic; margin-top: 2px; }
+.vc-chn { font-size: 13px; color: #888; margin-top: 2px; }
+.vc-sound-badge {
+  background: #fff3e0; border: 2px dashed #ff9800;
+  border-radius: 12px; padding: 6px 12px; font-size: 16px;
+  font-weight: bold; color: #d84315; letter-spacing: 1px;
+}
+
+/* ════════════ 作业页 ════════════ */
+.hw-body { padding: 20px 18px; }
+.hw-body h3 { color: #e65100; font-size: 18px; margin-bottom: 16px; }
+.hw-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #f9f9f9; border-radius: 14px; padding: 14px;
+  margin-bottom: 12px;
+}
+.hw-num {
+  width: 32px; height: 32px; min-width: 32px;
+  background: #ef6c00; color: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 16px;
+}
+.hw-text { font-size: 15px; color: #333; line-height: 1.7; }
+.hw-text strong { color: #1565c0; }
+
+.practice-btns {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+}
+.pb {
+  background: white; border: 2px solid #ef6c00; color: #ef6c00;
+  border-radius: 20px; padding: 8px 16px; font-size: 14px;
+  cursor: pointer; transition: all .2s;
+}
+.pb:hover { background: #ef6c00; color: white; }
+
+/* ──────── 动画 ──────── */
+.pop { animation: pop .35s ease; }
+@keyframes pop {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═════════════════════════════════
+     封面
+═════════════════════════════════ -->
+<div class="page active" id="pg-cover">
+  <div class="cover">
+    <div class="logo">🐝</div>
+    <div class="brand">Roise English</div>
+    <div class="subtitle">English Learning for Kids</div>
+    <div class="divider"></div>
+    <div class="topic">I like to eat 🍎</div>
+    <div class="session-badge">Topic 5 · Session 5 · 自然拼读</div>
+    <div class="scene-desc">
+      📍 场景：草原上 / 市场里<br>
+      🎯 目标：学习动物的声音（自然拼读）<br>
+      📖 课本第39页
+    </div>
+    <button class="btn-start" onclick="go('pg-sounds')">开始学习 ▶</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第1页：课本第39页 Sounds（模仿课本排版）
+═════════════════════════════════ -->
+<div class="page" id="pg-sounds">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 5 · Sounds · 第39页</div>
+      <div class="main">Make the sounds 🎵</div>
+    </div>
+    <div class="pg">1/3</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    这是课本第39页的内容。点击每个动物的图片听它的叫声！让孩子模仿发出这个声音。
+  </div>
+
+  <div class="sounds-body">
+
+    <!-- 标题 -->
+    <div class="sounds-header">
+      <span class="sh-title">Sounds</span>
+      <span class="sh-icon">🎵</span>
+      <span class="sh-sub">Make the sounds</span>
+    </div>
+
+    <!-- 三张动物卡片 -->
+    <div class="sounds-row">
+
+      <!-- Bumble bee 大黄蜂 -->
+      <div class="sound-card sc-bee" onclick="tap(this,'Buzzzz.')">
+        <span class="sc-emoji">🐝</span>
+        <div class="sc-sound">buzzzz</div>
+        <div class="sc-word">Bumble bee</div>
+        <div class="sc-chn">大黄蜂</div>
+      </div>
+
+      <!-- Snake 蛇 -->
+      <div class="sound-card sc-snake" onclick="tap(this,'Sssss.')">
+        <span class="sc-emoji">🐍</span>
+        <div class="sc-sound">sssss</div>
+        <div class="sc-word">Snake</div>
+        <div class="sc-chn">蛇</div>
+      </div>
+
+      <!-- Cow 牛 -->
+      <div class="sound-card sc-cow" onclick="tap(this,'Moo.')">
+        <span class="sc-emoji">🐄</span>
+        <div class="sc-sound">moo</div>
+        <div class="sc-word">Cow</div>
+        <div class="sc-chn">牛</div>
+      </div>
+
+    </div>
+
+    <!-- 贴纸活动提示 -->
+    <div style="text-align:center; margin: 16px 0;">
+      <div style="font-size:36px;">🎨 ✂️ 🍎🍓🍊🍌</div>
+      <div style="font-size:14px; color:#888; margin-top:6px;">
+        ✂️ Use the stickers to fill the fruit stall<br>
+        用贴纸填满水果摊
+      </div>
+    </div>
+
+    <!-- 语言点 -->
+    <div class="lang-bar">
+      <strong>💡 Language 语言点：</strong><br>
+      Bumble bee —— 大黄蜂（嗡嗡声 Buzzzz）<br>
+      Snake —— 蛇（嘶嘶声 Sssss）<br>
+      Cow —— 牛（哞哞声 Moo）
+      <br><span style="color:#888;font-size:12px;">学生看图、模仿动作和声音。练习这些动物发出的声音。</span>
+    </div>
+
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-cover')">← 封面</button>
+    <span class="tip">👆 点击动物听叫声</span>
+    <button onclick="go('pg-vocab')">下一页 →</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第2页：单词练习（逐词点读）
+═════════════════════════════════ -->
+<div class="page" id="pg-vocab">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 5 · Words</div>
+      <div class="main">动物单词 & 发音 🐾</div>
+    </div>
+    <div class="pg">2/3</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="grandma-tip">
+    <span class="label">👵 爷爷奶奶看这里：</span><br>
+    这里把每个动物放大了，点击可以听到英文发音和动物叫声。问孩子："这是什么动物？它怎么叫？"
+  </div>
+
+  <div class="vocab-section">
+    <h3>🐾 点击单词听发音并跟读</h3>
+
+    <!-- Bumble bee -->
+    <div class="vocab-card" onclick="tap(this,'Bumble bee. Buzzzz.')">
+      <div class="vc-emoji">🐝</div>
+      <div class="vc-info">
+        <div class="vc-eng">Bumble bee</div>
+        <div class="vc-phonetic">/ˈbʌm.bəl biː/</div>
+        <div class="vc-chn">大黄蜂</div>
+      </div>
+      <div class="vc-sound-badge">buzzzz</div>
+    </div>
+
+    <!-- Snake -->
+    <div class="vocab-card" onclick="tap(this,'Snake. Sssss.')">
+      <div class="vc-emoji">🐍</div>
+      <div class="vc-info">
+        <div class="vc-eng">Snake</div>
+        <div class="vc-phonetic">/sneɪk/</div>
+        <div class="vc-chn">蛇</div>
+      </div>
+      <div class="vc-sound-badge">sssss</div>
+    </div>
+
+    <!-- Cow -->
+    <div class="vocab-card" onclick="tap(this,'Cow. Moo.')">
+      <div class="vc-emoji">🐄</div>
+      <div class="vc-info">
+        <div class="vc-eng">Cow</div>
+        <div class="vc-phonetic">/kaʊ/</div>
+        <div class="vc-chn">牛</div>
+      </div>
+      <div class="vc-sound-badge">moo</div>
+    </div>
+
+  </div>
+
+  <div class="chn-bar">
+    <span class="label">💡 学习提示：</span><br>
+    本节课学习三种动物和它们的声音：<br>
+    🐝 Bumble bee → Buzzzz（蜜蜂嗡嗡叫）<br>
+    🐍 Snake → Sssss（蛇嘶嘶叫）<br>
+    🐄 Cow → Moo（牛哞哞叫）
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-sounds')">← 上一页</button>
+    <span class="tip">👆 点单词听发音</span>
+    <button onclick="go('pg-hw')">下一页 →</button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════
+     第3页：作业 + 练习
+═════════════════════════════════ -->
+<div class="page" id="pg-hw">
+  <div class="top-bar">
+    <div class="left">
+      <div class="sub">Session 5 · Homework</div>
+      <div class="main">作业 &amp; 练习 ✏️</div>
+    </div>
+    <div class="pg">3/3</div>
+  </div>
+
+  <div class="speed-bar">
+    <span class="speed-label">🎵 语速</span>
+    <button onclick="setSpeed('slow')" class="speed-btn" id="speed-slow">🐢 慢</button>
+    <button onclick="setSpeed('normal')" class="speed-btn active" id="speed-normal">🚶 中</button>
+    <button onclick="setSpeed('fast')" class="speed-btn" id="speed-fast">🐇 快</button>
+  </div>
+
+  <div class="hw-body">
+    <h3>📝 课后练习</h3>
+
+    <div class="hw-item">
+      <div class="hw-num">1</div>
+      <div class="hw-text">跟读课后复习视频</div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num">2</div>
+      <div class="hw-text">
+        练习三种动物的发音：<br>
+        <strong>Buzzzz</strong>（大黄蜂嗡嗡叫）、
+        <strong>Sssss</strong>（蛇嘶嘶叫）、
+        <strong>Moo</strong>（牛哞哞叫）<br>
+        <div class="practice-btns" style="margin-top:10px;">
+          <button class="pb" onclick="tap(this,'Buzzzz.')">🐝 buzzzz</button>
+          <button class="pb" onclick="tap(this,'Sssss.')">🐍 sssss</button>
+          <button class="pb" onclick="tap(this,'Moo.')">🐄 moo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num">3</div>
+      <div class="hw-text">
+        完成 <strong>Notebook 练习本 第30-31页：</strong><br>
+        ① 选择对应 baby 发出声音的图案，并涂色 🖍️<br>
+        ② 将食物剪下来并粘贴在图上 ✂️🍎🍓🍊
+      </div>
+    </div>
+  </div>
+
+  <div class="bot-nav">
+    <button onclick="go('pg-vocab')">← 上一页</button>
+    <span class="tip">加油！Good job! 🌟</span>
+    <button onclick="go('pg-cover')">回封面</button>
+  </div>
+</div>
+
+</div><!-- .app -->
+
+<script>
+// ─── 语速设置 ───
+let currentSpeed = 0.72;
+
+function setSpeed(level) {
+  if (level === 'slow')   currentSpeed = 0.55;
+  if (level === 'normal') currentSpeed = 0.72;
+  if (level === 'fast')   currentSpeed = 0.95;
+
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  const target = document.getElementById('speed-' + level);
+  if (target) target.classList.add('active');
+}
+
+// ─── 页面跳转 ───
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  updateSpeedBtns();
+}
+
+function updateSpeedBtns() {
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  let id = 'speed-normal';
+  if (currentSpeed <= 0.55) id = 'speed-slow';
+  else if (currentSpeed >= 0.9) id = 'speed-fast';
+  document.querySelectorAll('#' + id).forEach(b => b.classList.add('active'));
+}
+
+// ─── 语音 + 动画 ───
+function tap(el, text) {
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+  setTimeout(() => el.classList.remove('pop'), 400);
+
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = currentSpeed;
+  u.pitch = 1.15;
+  const voices = speechSynthesis.getVoices();
+  const v = voices.find(v => v.name.includes('Samantha'))
+         || voices.find(v => v.name.includes('Karen'))
+         || voices.find(v => v.lang === 'en-US');
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+
+speechSynthesis.getVoices();
+speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+</script>
+</body>
+</html>
