@@ -311,26 +311,23 @@ body {
     <div class="sounds-row">
 
       <!-- Bumble bee 大黄蜂 -->
-      <div class="sound-card sc-bee">
+      <div class="sound-card sc-bee" onclick="tap(this,'Bumble bee.')">
         <span class="sc-emoji">🐝</span>
-        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Buzzzz.');">buzzzz</div>
-        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Bumble bee.');">Bumble bee</div>
+        <div class="sc-word">Bumble bee</div>
         <div class="sc-chn">大黄蜂</div>
       </div>
 
       <!-- Snake 蛇 -->
-      <div class="sound-card sc-snake">
+      <div class="sound-card sc-snake" onclick="tap(this,'Snake.')">
         <span class="sc-emoji">🐍</span>
-        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Sssss.');">sssss</div>
-        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Snake.');">Snake</div>
+        <div class="sc-word">Snake</div>
         <div class="sc-chn">蛇</div>
       </div>
 
       <!-- Cow 牛 -->
-      <div class="sound-card sc-cow">
+      <div class="sound-card sc-cow" onclick="tap(this,'Cow.')">
         <span class="sc-emoji">🐄</span>
-        <div class="sc-sound" onclick="event.stopPropagation(); tap(this,'Moo.');">moo</div>
-        <div class="sc-word" onclick="event.stopPropagation(); tap(this,'Cow.');">Cow</div>
+        <div class="sc-word">Cow</div>
         <div class="sc-chn">牛</div>
       </div>
 
@@ -348,9 +345,9 @@ body {
     <!-- 语言点 -->
     <div class="lang-bar">
       <strong>💡 Language 语言点：</strong><br>
-      Bumble bee —— 大黄蜂（嗡嗡声 Buzzzz）<br>
-      Snake —— 蛇（嘶嘶声 Sssss）<br>
-      Cow —— 牛（哞哞声 Moo）
+      Bumble bee —— 大黄蜂<br>
+      Snake —— 蛇<br>
+      Cow —— 牛
       <br><span style="color:#888;font-size:12px;">学生看图、模仿动作和声音。练习这些动物发出的声音。</span>
     </div>
 
@@ -358,7 +355,7 @@ body {
 
   <div class="bot-nav">
     <button onclick="go('pg-cover')">← 封面</button>
-    <span class="tip">👆 点击动物听叫声</span>
+    <span class="tip">👆 点击动物听发音</span>
     <button onclick="go('pg-vocab')">下一页 →</button>
   </div>
 </div>
@@ -391,46 +388,43 @@ body {
     <h3>🐾 点击单词听发音并跟读</h3>
 
     <!-- Bumble bee -->
-    <div class="vocab-card" onclick="tap(this,'Bumble bee. Buzzzz.')">
+    <div class="vocab-card" onclick="tap(this,'Bumble bee.')">
       <div class="vc-emoji">🐝</div>
       <div class="vc-info">
         <div class="vc-eng">Bumble bee</div>
         <div class="vc-phonetic">/ˈbʌm.bəl biː/</div>
         <div class="vc-chn">大黄蜂</div>
       </div>
-      <div class="vc-sound-badge">buzzzz</div>
     </div>
 
     <!-- Snake -->
-    <div class="vocab-card" onclick="tap(this,'Snake. Sssss.')">
+    <div class="vocab-card" onclick="tap(this,'Snake.')">
       <div class="vc-emoji">🐍</div>
       <div class="vc-info">
         <div class="vc-eng">Snake</div>
         <div class="vc-phonetic">/sneɪk/</div>
         <div class="vc-chn">蛇</div>
       </div>
-      <div class="vc-sound-badge">sssss</div>
     </div>
 
     <!-- Cow -->
-    <div class="vocab-card" onclick="tap(this,'Cow. Moo.')">
+    <div class="vocab-card" onclick="tap(this,'Cow.')">
       <div class="vc-emoji">🐄</div>
       <div class="vc-info">
         <div class="vc-eng">Cow</div>
         <div class="vc-phonetic">/kaʊ/</div>
         <div class="vc-chn">牛</div>
       </div>
-      <div class="vc-sound-badge">moo</div>
     </div>
 
   </div>
 
   <div class="chn-bar">
     <span class="label">💡 学习提示：</span><br>
-    本节课学习三种动物和它们的声音：<br>
-    🐝 Bumble bee → Buzzzz（蜜蜂嗡嗡叫）<br>
-    🐍 Snake → Sssss（蛇嘶嘶叫）<br>
-    🐄 Cow → Moo（牛哞哞叫）
+    本节课学习三种动物单词：<br>
+    🐝 Bumble bee —— 大黄蜂<br>
+    🐍 Snake —— 蛇<br>
+    🐄 Cow —— 牛
   </div>
 
   <div class="bot-nav">
@@ -470,14 +464,14 @@ body {
     <div class="hw-item">
       <div class="hw-num">2</div>
       <div class="hw-text">
-        练习三种动物的发音：<br>
-        <strong>Buzzzz</strong>（大黄蜂嗡嗡叫）、
-        <strong>Sssss</strong>（蛇嘶嘶叫）、
-        <strong>Moo</strong>（牛哞哞叫）<br>
+        练习三种动物单词的发音：<br>
+        <strong>Bumble bee</strong>（大黄蜂）、
+        <strong>Snake</strong>（蛇）、
+        <strong>Cow</strong>（牛）<br>
         <div class="practice-btns" style="margin-top:10px;">
-          <button class="pb" onclick="tap(this,'Buzzzz.')">🐝 buzzzz</button>
-          <button class="pb" onclick="tap(this,'Sssss.')">🐍 sssss</button>
-          <button class="pb" onclick="tap(this,'Moo.')">🐄 moo</button>
+          <button class="pb" onclick="tap(this,'Bumble bee.')">🐝 Bumble bee</button>
+          <button class="pb" onclick="tap(this,'Snake.')">🐍 Snake</button>
+          <button class="pb" onclick="tap(this,'Cow.')">🐄 Cow</button>
         </div>
       </div>
     </div>
